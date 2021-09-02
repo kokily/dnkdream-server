@@ -1,0 +1,44 @@
+{
+  "name": "dnkdream-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/kokily/dnkdream-server",
+  "author": "kokily <kokily@naver.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/cors": "3.1.0",
+    "apollo-server-koa": "3.3.0",
+    "bcryptjs": "2.4.3",
+    "dotenv": "10.0.0",
+    "gql-merge": "0.0.6",
+    "graphql": "15.5.2",
+    "graphql-middleware": "6.1.5",
+    "graphql-tools": "8.2.0",
+    "jsonwebtoken": "8.5.1",
+    "koa": "2.13.1",
+    "koa-body": "4.2.0",
+    "koa-router": "10.1.1",
+    "merge-graphql-schemas": "1.7.8",
+    "pg": "8.7.1",
+    "typeorm": "0.2.37"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "2.4.2",
+    "@types/dotenv": "8.2.0",
+    "@types/jsonwebtoken": "8.5.5",
+    "@types/koa": "2.13.4",
+    "@types/koa-router": "7.4.4",
+    "@types/node": "16.7.10",
+    "babel-runtime": "6.26.0",
+    "cross-env": "7.0.3",
+    "graphql-to-typescript": "0.1.2",
+    "ts-node-dev": "1.1.8",
+    "typescript": "4.4.2"
+  },
+  "scripts": {
+    "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
+    "types": "graphql-to-typescript ./src/schema.graphql ./src/@types/index.d.ts",
+    "predev": "yarn types",
+    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn ./src/server.ts"
+  }
+}
