@@ -11,6 +11,7 @@ import http from 'http';
 import fs from 'fs';
 import { ConnectionOptions, createConnection } from 'typeorm';
 import entities from './entities';
+import upload from './libs/upload';
 
 const Options: ConnectionOptions = {
   type: 'postgres',
@@ -62,6 +63,7 @@ const _bootStrap = async () => {
 
     await apollo.start();
 
+    router.use('/upload', upload.routes());
     router.get('/graphql', apollo.getMiddleware());
     router.post('/graphql', apollo.getMiddleware());
 
