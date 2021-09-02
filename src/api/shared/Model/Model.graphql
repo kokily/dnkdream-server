@@ -1,4 +1,16 @@
+scalar Date
+
 type Admin {
   id: String!
   password: String!
+}
+
+type Notice {
+  id: String!
+  title: String!
+  body: String!
+  thumbnail: String
+  tags: [String]!
+  created_at: Date!
+  updated_at: Date
 }

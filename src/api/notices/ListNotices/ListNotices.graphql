@@ -1,0 +1,13 @@
+type ListNoticesResponse {
+  ok: Boolean!
+  error: String
+  notices: [Notice]
+}
+
+type Query {
+  ListNotices(
+    title: String
+    tag: String
+    cursor: ID
+  ): ListNoticesResponse!
+}

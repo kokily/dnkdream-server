@@ -1,0 +1,10 @@
+type RemoveNoticeResponse {
+  ok: Boolean!
+  error: String  
+}
+
+type Mutation {
+  RemoveNotice(
+    id: ID!
+  ): RemoveNoticeResponse!
+}

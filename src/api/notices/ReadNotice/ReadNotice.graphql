@@ -1,0 +1,11 @@
+type ReadNoticeResponse {
+  ok: Boolean!
+  error: String
+  notice: Notice
+}
+
+type Query {
+  ReadNotice(
+    id: ID!
+  ): ReadNoticeResponse!
+}

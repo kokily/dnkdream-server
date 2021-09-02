@@ -1,0 +1,13 @@
+type AddNoticeResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  AddNotice(
+    title: String!
+    body: String!
+    thumbnail: String
+    tags: [String]!
+  ): AddNoticeResponse!
+}

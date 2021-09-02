@@ -1,3 +1,23 @@
+type LoginResponse {
+  ok: Boolean!
+  error: String
+  access_token: String
+  refresh_token: String
+}
+
+type Mutation {
+  Login(password: String!): LoginResponse!
+  Logout: LogoutResponse!
+  AddNotice(title: String!, body: String!, thumbnail: String, tags: [String]!): AddNoticeResponse!
+  RemoveNotice(id: ID!): RemoveNoticeResponse!
+  UpdateNotice(id: ID!, title: String, body: String, thumbnail: String, tags: [String]): UpdateNoticeResponse!
+}
+
+type LogoutResponse {
+  ok: Boolean!
+  error: String
+}
+
 type MeResponse {
   ok: Boolean!
   error: String
@@ -6,9 +26,50 @@ type MeResponse {
 
 type Query {
   Me: MeResponse!
+  ListNotices(title: String, tag: String, cursor: ID): ListNoticesResponse!
+  ReadNotice(id: ID!): ReadNoticeResponse!
 }
+
+type AddNoticeResponse {
+  ok: Boolean!
+  error: String
+}
+
+type ListNoticesResponse {
+  ok: Boolean!
+  error: String
+  notices: [Notice]
+}
+
+type ReadNoticeResponse {
+  ok: Boolean!
+  error: String
+  notice: Notice
+}
+
+type RemoveNoticeResponse {
+  ok: Boolean!
+  error: String
+}
+
+type UpdateNoticeResponse {
+  ok: Boolean!
+  error: String
+}
+
+scalar Date
 
 type Admin {
   id: String!
   password: String!
+}
+
+type Notice {
+  id: String!
+  title: String!
+  body: String!
+  thumbnail: String
+  tags: [String]!
+  created_at: Date!
+  updated_at: Date
 }
