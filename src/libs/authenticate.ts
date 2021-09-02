@@ -49,7 +49,7 @@ const authResolver = (resolverFunction) => async (parent, args, context, info) =
       await tokenRefresh(ctx, refreshToken);
     }
   } catch (err) {
-    if (!refreshToken) throw new Error(err);
+    if (!refreshToken) throw new Error('NoRefreshToken');
 
     try {
       const admin_id = await tokenRefresh(ctx, refreshToken);

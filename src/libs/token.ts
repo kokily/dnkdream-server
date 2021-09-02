@@ -1,6 +1,5 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
 import { Context } from 'koa';
-import { getRepository } from 'typeorm';
 
 export type TokenType = {
   iat: number;

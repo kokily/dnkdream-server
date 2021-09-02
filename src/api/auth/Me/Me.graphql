@@ -1,0 +1,9 @@
+type MeResponse {
+  ok: Boolean!
+  error: String
+  me: String
+}
+
+type Query {
+  Me: MeResponse!
+}
