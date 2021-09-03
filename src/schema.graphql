@@ -11,6 +11,9 @@ type Mutation {
   AddNotice(title: String!, body: String!, thumbnail: String, tags: [String]!): AddNoticeResponse!
   RemoveNotice(id: ID!): RemoveNoticeResponse!
   UpdateNotice(id: ID!, title: String, body: String, thumbnail: String, tags: [String]): UpdateNoticeResponse!
+  AddQuestion(title: String!, body: String!, name: String!, email: String!, phone: String): AddQuestionResponse!
+  ConfirmQuestion(id: ID!): ConfirmQuestionResponse!
+  RemoveQuestion(id: ID!): RemoveQuestionResponse!
 }
 
 type LogoutResponse {
@@ -28,6 +31,8 @@ type Query {
   Me: MeResponse!
   ListNotices(title: String, tag: String, cursor: ID): ListNoticesResponse!
   ReadNotice(id: ID!): ReadNoticeResponse!
+  ListQuestions(title: String, confirm: Boolean, name: String, email: String, cursor: ID): ListQuestionsResponse!
+  ReadQuestion(id: ID!): ReadQuestionResponse!
 }
 
 type AddNoticeResponse {
@@ -57,19 +62,58 @@ type UpdateNoticeResponse {
   error: String
 }
 
+type AddQuestionResponse {
+  ok: Boolean!
+  error: String
+}
+
+type ConfirmQuestionResponse {
+  ok: Boolean!
+  error: String
+}
+
+type ListQuestionsResponse {
+  ok: Boolean!
+  error: String
+  questions: [Question]
+}
+
+type ReadQuestionResponse {
+  ok: Boolean!
+  error: String
+  question: Question
+}
+
+type RemoveQuestionResponse {
+  ok: Boolean!
+  error: String
+}
+
 scalar Date
 
 type Admin {
-  id: String!
+  id: ID!
   password: String!
 }
 
 type Notice {
-  id: String!
+  id: ID!
   title: String!
   body: String!
   thumbnail: String
   tags: [String]!
+  created_at: Date!
+  updated_at: Date
+}
+
+type Question {
+  id: ID!
+  title: String!
+  body: String!
+  name: String!
+  email: String!
+  phone: String
+  isConfirm: Boolean!
   created_at: Date!
   updated_at: Date
 }

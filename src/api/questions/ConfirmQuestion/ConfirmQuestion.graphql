@@ -1,0 +1,10 @@
+type ConfirmQuestionResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  ConfirmQuestion(
+    id: ID!
+  ): ConfirmQuestionResponse!
+}

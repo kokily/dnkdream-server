@@ -1,0 +1,15 @@
+type ListQuestionsResponse {
+  ok: Boolean!
+  error: String
+  questions: [Question]
+}
+
+type Query {
+  ListQuestions(
+    title: String
+    confirm: Boolean
+    name: String
+    email: String
+    cursor: ID
+  ): ListQuestionsResponse!
+}

@@ -10,6 +10,7 @@
     "apollo-server-koa": "3.3.0",
     "aws-sdk": "2.982.0",
     "bcryptjs": "2.4.3",
+    "class-validator": "0.13.1",
     "dotenv": "10.0.0",
     "gql-merge": "0.0.6",
     "graphql": "15.5.2",

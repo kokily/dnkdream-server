@@ -1,16 +1,28 @@
 scalar Date
 
 type Admin {
-  id: String!
+  id: ID!
   password: String!
 }
 
 type Notice {
-  id: String!
+  id: ID!
   title: String!
   body: String!
   thumbnail: String
   tags: [String]!
+  created_at: Date!
+  updated_at: Date
+}
+
+type Question {
+  id: ID!
+  title: String!
+  body: String!
+  name: String!
+  email: String!
+  phone: String
+  isConfirm: Boolean!
   created_at: Date!
   updated_at: Date
 }
