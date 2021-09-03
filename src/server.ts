@@ -39,18 +39,6 @@ const _bootStrap = async () => {
     const app = new Koa();
     const router = new Router();
 
-    app.use(
-      cors({
-        origin:
-          process.env.NODE_ENV === 'production'
-            ? 'https://dnkdream.com'
-            : 'http://localhost:3000',
-      })
-    );
-    app.use(bodyParser({ multipart: true }));
-    app.use(router.routes());
-    app.use(router.allowedMethods());
-
     const apollo = new ApolloServer({
       schema,
       context: ({ ctx }: { ctx: Context }) => {
@@ -61,13 +49,26 @@ const _bootStrap = async () => {
       plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
     });
 
+    app.use(
+      cors({
+        origin:
+          process.env.NODE_ENV === 'production'
+            ? 'https://dnkdream.com'
+            : 'http://localhost:3000',
+        credentials: true,
+      })
+    );
+    app.use(bodyParser({ multipart: true }));
+    app.use(router.routes());
+    app.use(router.allowedMethods());
+
     await apollo.start();
 
     router.use('/upload', upload.routes());
-    router.get('/graphql', apollo.getMiddleware());
-    router.post('/graphql', apollo.getMiddleware());
+    router.get('/graphql', apollo.getMiddleware({ cors: false }));
+    router.post('/graphql', apollo.getMiddleware({ cors: false }));
 
-    apollo.applyMiddleware({ app, cors: false });
+    apollo.applyMiddleware({ app });
 
     let server;
 
