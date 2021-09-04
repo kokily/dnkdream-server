@@ -1,14 +1,26 @@
 import { getRepository } from 'typeorm';
 import { AddNoticeMutationArgs, AddNoticeResponse } from '../../../@types';
 import { Resolvers } from '../../../@types/resolvers';
-import authResolver from '../../../libs/authenticate';
 import { Notice } from '../../../entities/Notice';
 import { Tag } from '../../../entities/Tag';
+import { Context } from 'koa';
 
 const resolvers: Resolvers = {
   Mutation: {
-    AddNotice: async (_, args: AddNoticeMutationArgs): Promise<AddNoticeResponse> => {
+    AddNotice: async (
+      _,
+      args: AddNoticeMutationArgs,
+      { ctx }: { ctx: Context }
+    ): Promise<AddNoticeResponse> => {
+      const { admin_id } = ctx.state;
       const { title, body, thumbnail, tags } = args;
+
+      if (!admin_id) {
+        return {
+          ok: false,
+          error: '로그인 후 이용하세요',
+        };
+      }
 
       try {
         if (!tags || tags.length < 1) {

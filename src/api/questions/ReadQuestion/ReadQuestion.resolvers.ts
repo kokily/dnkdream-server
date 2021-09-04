@@ -1,3 +1,4 @@
+import { Context } from 'koa';
 import { getRepository } from 'typeorm';
 import { ReadQuestionQueryArgs, ReadQuestionResponse } from '../../../@types';
 import { Resolvers } from '../../../@types/resolvers';
@@ -7,9 +8,19 @@ const resolvers: Resolvers = {
   Query: {
     ReadQuestion: async (
       _,
-      args: ReadQuestionQueryArgs
+      args: ReadQuestionQueryArgs,
+      { ctx }: { ctx: Context }
     ): Promise<ReadQuestionResponse> => {
+      const { admin_id } = ctx.state;
       const { id } = args;
+
+      if (!admin_id) {
+        return {
+          ok: false,
+          error: '로그인 후 이용하세요',
+          question: null,
+        };
+      }
 
       try {
         const question = await getRepository(Question).findOne(id);

@@ -1,16 +1,26 @@
+import { Context } from 'koa';
 import { getManager, getRepository } from 'typeorm';
 import { ListQuestionsQueryArgs, ListQuestionsResponse } from '../../../@types';
 import { Resolvers } from '../../../@types/resolvers';
 import { Question } from '../../../entities/Question';
-import authResolver from '../../../libs/authenticate';
 
 const resolvers: Resolvers = {
   Query: {
     ListQuestions: async (
       _,
-      args: ListQuestionsQueryArgs
+      args: ListQuestionsQueryArgs,
+      { ctx }: { ctx: Context }
     ): Promise<ListQuestionsResponse> => {
+      const { admin_id } = ctx.state;
       const { title, confirm, name, email, cursor } = args;
+
+      if (!admin_id) {
+        return {
+          ok: false,
+          error: '로그인 후 이용하세요',
+          questions: null,
+        };
+      }
 
       try {
         const query = await getManager()

@@ -1,7 +1,6 @@
 import { Context } from 'koa';
 import { MeResponse } from '../../../@types';
 import { Resolvers } from '../../../@types/resolvers';
-import authResolver from '../../../libs/authenticate';
 
 const resolvers: Resolvers = {
   Query: {

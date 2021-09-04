@@ -1,16 +1,25 @@
+import { Context } from 'koa';
 import { getRepository } from 'typeorm';
 import { ConfirmQuestionMutationArgs, ConfirmQuestionResponse } from '../../../@types';
 import { Resolvers } from '../../../@types/resolvers';
 import { Question } from '../../../entities/Question';
-import authResolver from '../../../libs/authenticate';
 
 const resolvers: Resolvers = {
   Mutation: {
     ConfirmQuestion: async (
       _,
-      args: ConfirmQuestionMutationArgs
+      args: ConfirmQuestionMutationArgs,
+      { ctx }: { ctx: Context }
     ): Promise<ConfirmQuestionResponse> => {
+      const { admin_id } = ctx.state;
       const { id } = args;
+
+      if (!admin_id) {
+        return {
+          ok: false,
+          error: '로그인 후 이용하세요',
+        };
+      }
 
       try {
         await getRepository(Question).update(
