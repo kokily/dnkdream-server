@@ -6,16 +6,14 @@ import { setCookie } from '../../../libs/token';
 
 const resolvers: Resolvers = {
   Mutation: {
-    Logout: authResolver(
-      async (_, __, { ctx }: { ctx: Context }): Promise<LogoutResponse> => {
-        setCookie(ctx);
+    Logout: async (_, __, { ctx }: { ctx: Context }): Promise<LogoutResponse> => {
+      setCookie(ctx);
 
-        return {
-          ok: true,
-          error: null,
-        };
-      }
-    ),
+      return {
+        ok: true,
+        error: null,
+      };
+    },
   },
 };
 

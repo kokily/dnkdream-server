@@ -6,25 +6,26 @@ import authResolver from '../../../libs/authenticate';
 
 const resolvers: Resolvers = {
   Mutation: {
-    RemoveNotice: authResolver(
-      async (_, args: RemoveNoticeMutationArgs): Promise<RemoveNoticeResponse> => {
-        const { id } = args;
+    RemoveNotice: async (
+      _,
+      args: RemoveNoticeMutationArgs
+    ): Promise<RemoveNoticeResponse> => {
+      const { id } = args;
 
-        try {
-          await getRepository(Notice).delete(id);
+      try {
+        await getRepository(Notice).delete(id);
 
-          return {
-            ok: true,
-            error: null,
-          };
-        } catch (err: any) {
-          return {
-            ok: false,
-            error: err.message,
-          };
-        }
+        return {
+          ok: true,
+          error: null,
+        };
+      } catch (err: any) {
+        return {
+          ok: false,
+          error: err.message,
+        };
       }
-    ),
+    },
   },
 };
 

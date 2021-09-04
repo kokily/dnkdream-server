@@ -12,6 +12,7 @@ import fs from 'fs';
 import { ConnectionOptions, createConnection } from 'typeorm';
 import entities from './entities';
 import upload from './libs/upload';
+import jwtMiddleware from './libs/authenticate';
 
 const Options: ConnectionOptions = {
   type: 'postgres',
@@ -59,6 +60,7 @@ const _bootStrap = async () => {
       })
     );
     app.use(bodyParser({ multipart: true }));
+    app.use(jwtMiddleware);
     app.use(router.routes());
     app.use(router.allowedMethods());
 

@@ -7,30 +7,31 @@ import { Notice } from '../../../entities/Notice';
 
 const resolvers: Resolvers = {
   Mutation: {
-    UpdateNotice: authResolver(
-      async (_, args: UpdateNoticeMutationArgs): Promise<UpdateNoticeResponse> => {
-        const { id } = args;
+    UpdateNotice: async (
+      _,
+      args: UpdateNoticeMutationArgs
+    ): Promise<UpdateNoticeResponse> => {
+      const { id } = args;
 
-        try {
-          const notNull = cleanAllNullArgs(args);
+      try {
+        const notNull = cleanAllNullArgs(args);
 
-          await getRepository(Notice).update(
-            { id },
-            { ...notNull, updated_at: new Date() }
-          );
+        await getRepository(Notice).update(
+          { id },
+          { ...notNull, updated_at: new Date() }
+        );
 
-          return {
-            ok: true,
-            error: null,
-          };
-        } catch (err: any) {
-          return {
-            ok: false,
-            error: err.message,
-          };
-        }
+        return {
+          ok: true,
+          error: null,
+        };
+      } catch (err: any) {
+        return {
+          ok: false,
+          error: err.message,
+        };
       }
-    ),
+    },
   },
 };
 

@@ -6,28 +6,29 @@ import authResolver from '../../../libs/authenticate';
 
 const resolvers: Resolvers = {
   Mutation: {
-    ConfirmQuestion: authResolver(
-      async (_, args: ConfirmQuestionMutationArgs): Promise<ConfirmQuestionResponse> => {
-        const { id } = args;
+    ConfirmQuestion: async (
+      _,
+      args: ConfirmQuestionMutationArgs
+    ): Promise<ConfirmQuestionResponse> => {
+      const { id } = args;
 
-        try {
-          await getRepository(Question).update(
-            { id },
-            { isConfirm: true, updated_at: new Date() }
-          );
+      try {
+        await getRepository(Question).update(
+          { id },
+          { isConfirm: true, updated_at: new Date() }
+        );
 
-          return {
-            ok: true,
-            error: null,
-          };
-        } catch (err: any) {
-          return {
-            ok: false,
-            error: err.message,
-          };
-        }
+        return {
+          ok: true,
+          error: null,
+        };
+      } catch (err: any) {
+        return {
+          ok: false,
+          error: err.message,
+        };
       }
-    ),
+    },
   },
 };
 

@@ -5,7 +5,7 @@ import authResolver from '../../../libs/authenticate';
 
 const resolvers: Resolvers = {
   Query: {
-    Me: authResolver(async (_, __, { ctx }: { ctx: Context }): Promise<MeResponse> => {
+    Me: async (_, __, { ctx }: { ctx: Context }): Promise<MeResponse> => {
       const { admin_id } = ctx.state;
 
       if (!admin_id) {
@@ -21,7 +21,7 @@ const resolvers: Resolvers = {
           me: admin_id,
         };
       }
-    }),
+    },
   },
 };
 
